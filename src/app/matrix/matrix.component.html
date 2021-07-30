@@ -1,0 +1,104 @@
+<div id="dvs" class="{{classAttribute}}" role="alert" *ngIf="alertBool" >
+    <button type="button" class="btn-close float-end" aria-label="Close" (click)="alertBool = !alertBool" ></button>
+
+        <h4 class="alert-heading d-flex align-items-center"> <mat-icon> {{icon}} </mat-icon> {{titleAlert}}</h4>
+
+    <p>{{textMessage}}</p>
+</div>
+
+
+<div class="mods d-flex justify-content-center align-items-center flex-column" *ngIf="controlAccessBool" >
+
+    <div id="header" class="p-4 m-3">
+        <label class="fs-4 text-info" >Llena los siguientes campos: </label><br>
+        <span class="note">Para utilizar la aplicación debes proporcionar la siguiente información. Es rápido y fácil.</span>
+    </div>
+    
+    <div>
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Nick name:</mat-label>
+            <input matInput placeholder="Napi" [(ngModel)]="usuario" name="usuario" type="text" >
+        </mat-form-field>
+    </div>
+    
+    <div>
+        <label for="fileUp" id="lb">
+            <div class="foto d-flex justify-content-center align-items-center flex-column" id="imgTest" (change)="encodeImageFileAsURL();"
+                 [(ngModel)]="_IMGE" name="_IMGE" [ngStyle]="{'background-image': 'url(&quot;' + _IMGE + '&quot;)'}">
+                 <span class="note">Click y sube una foto</span>
+                 <input  class="form-control form-control-sm" type="file" id="fileUp">
+            </div>
+        </label>
+    </div>
+
+    <button mat-raised-button color="primary"
+            class="d-flex justify-content-center align-items-center mt-3"
+            (click)="saveUsers()">
+        <mat-icon>how_to_reg</mat-icon>Entrar al Chat!
+    </button>
+
+</div>
+
+<div class=" d-flex justify-content-center flex-column w-100" *ngIf="boolCamp"  >
+
+    <p class="text-success"> Bienvenido: 
+        <strong> {{usuario}} </strong>  <span class="note">Token: {{TOKEN}}</span>
+    </p>
+    <div class="createChan d-flex justify-content-around flex-wrap "  >
+        <!-- <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Nombre del canal:</mat-label>
+            <input matInput placeholder="Napi" [(ngModel)]="chanel" name="chanel" type="text" >
+        </mat-form-field> -->
+        <div class="offcanvas offcanvas-end bg-dark" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+            <div class="offcanvas-header">
+              <h5 id="offcanvasRightLabel">Offcanvas right</h5>
+              <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body d-flex flex-column align-items-center">
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Nombre del canal:</mat-label>
+                    <input matInput placeholder="Napi Chanel" [(ngModel)]="chanel" name="chanel" type="text" >
+                </mat-form-field>
+                <div>
+                    <label for="fileUpChanel" id="lb">
+                        <div class="foto d-flex justify-content-center align-items-center flex-column" id="imgTest" (change)="encodeImageFileAsURLChanel();"
+                             [(ngModel)]="_IMGEChan" name="_IMGEChan" [ngStyle]="{'background-image': 'url(&quot;' + _IMGEChan + '&quot;)'}">
+                             <span class="note">Click y sube una foto</span>
+                             <input  class="form-control form-control-sm"
+                              type="file" id="fileUpChanel">
+                        </div>
+                    </label>
+                </div>
+            </div>
+          </div>
+        <button mat-icon-button color="primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" aria-label="Example icon button with a home icon">
+            Crear canal<mat-icon>control_point</mat-icon> 
+        </button>
+    </div>
+    <div id="dsc containerInpts" class="d-flex flex-column align-items-center">
+        
+        <div id="mensajeviewer" >
+            <div class="mensaje"
+                 [ngStyle]="{'border': 'dashed 1px ' + colorBorder }"
+                 *ngFor="let x of mensajesGen"
+                 (click)="delMensaje(x.usuario, x.id)">
+                 
+                   <span class="note"> {{x.date_mensaje | date: 'short' }}    <strong class="text-success" >{{x.usuario}}</strong> dice:</span><br>
+                   <span class="fs-5 text-info"> {{x.mensaje}} </span>
+            
+            </div>
+        </div>
+        
+        <div class="inpts d-flex justify-content-center bg-dark p-4 mt-3 rounded-bottom-3">
+            <mat-form-field class="example-full-width" appearance="fill" >
+              <mat-label>Mensaje:</mat-label>
+              <textarea matInput rows="3" [(ngModel)]="mensaje" cols="100" ></textarea>
+            </mat-form-field>
+            <button mat-button color="accent" (click)="saveMensaje()" class="d-flex align-items-center justify-content-center">
+                <mat-icon>send</mat-icon>
+            </button>
+        </div>
+    </div>
+
+</div>
+
